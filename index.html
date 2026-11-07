@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142421">
+  <title>魔道書 — あの会話を、もう一度使おう。</title>
+  <meta name="description" content="ChatGPTの会話ExportをWindows PCへ取り込み、原文を読み返し、言葉で探す。魔道書は、記録を手元に残す無料のオープンソースアプリです。">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/magic-scroll.ico" type="image/x-icon">
+  <script src="config.js" defer></script>
+  <script src="tips.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#pages">内容へ移動</a>
+  <header class="site-header">
+    <button class="brand" data-page="home" aria-label="魔道書 トップへ"><span class="brand-icon" aria-hidden="true">▤</span><span>魔道書<small>会話をひらく、小さな書庫</small></span></button>
+    <nav class="top-nav" aria-label="画面の選択">
+      <button data-page="home" aria-current="page"><span>01</span>魔道書とは</button>
+      <button data-page="demo"><span>02</span>試してみる</button>
+      <button data-page="core"><span>03</span>画面と使い方</button>
+      <button data-page="start"><span>04</span>入手する</button>
+    </nav>
+    <span class="prototype-label">Windows · 無料OSS</span>
+  </header>
+
+  <main id="pages" class="pages" tabindex="-1" aria-label="魔道書の紹介、全4画面" data-active="home">
+    <section class="screen active" id="home" data-screen="home" aria-labelledby="home-title">
+      <div class="screen-inner home-grid">
+        <div class="intro-copy">
+          <h1 id="home-title">あの会話を、<br>もう一度使おう。</h1>
+          <p class="lead">気になった発言へ戻り、考えごとの続きに使う。原文やしおりの操作は、実際の画面で紹介します。</p>
+          <div class="intro-actions"><button class="button primary" data-page="demo">架空の書庫を探してみる <span aria-hidden="true">→</span></button><button class="text-button" data-page="core">実際の画面を見る</button></div>
+          <p class="small quiet">基本機能はローカルで動作。外部AIへの送信やAPIキーは不要です。</p>
+          <div class="use-case"><span class="use-case-number">たとえば</span><div><h2>「雨の日の写真」、どこで話したっけ。</h2><p>覚えている言葉で検索し、当時の会話へ。残しておきたい部分には、しおりを付けられます。</p></div></div>
+          <aside class="update-box" aria-labelledby="update-title"><div><span class="status-dot"></span><h2 id="update-title">書庫の近況</h2><time class="small" datetime="2026-11-07">2026.11.07</time></div><p>にえの書庫だよりを追加しました。右下の司書から、会話を読み返す小さなヒントをどうぞ。</p><button class="text-button" data-page="start">配布状況・動作環境を見る →</button></aside>
+        </div>
+        <div class="intro-visual">
+          <figure class="visual-slot" data-illustration-slot>
+            <img id="hero-image" src="assets/MagicLogger-hero.webp?v=f2147d54" width="1672" height="941" decoding="async" alt="魔道書 MagicLogger。あなたの会話を収める書庫です。ChatGPTの会話を取り込み、ローカルで閲覧・検索できるアーカイブツール。巻物と羽ペン、タブレットが置かれた静かな書庫。">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="demo" data-screen="demo" aria-labelledby="demo-title" inert>
+      <div class="screen-inner">
+        <div class="section-heading"><div><p class="eyebrow">架空の書庫で、30秒のお試し</p><h1 id="demo-title">探す。ひらく。続きを見つける。</h1></div><span class="badge">サイト用の体験デモ</span></div>
+        <p class="demo-disclosure">4件の架空の会話を収録。検索はCoreの使い方を紹介する簡易版です。「関連する記録」はこのデモ用に用意したリンクで、Coreの自動推薦機能を示すものではありません。</p>
+        <div class="demo-workspace">
+          <aside class="demo-index" aria-label="会話を探す">
+            <form id="search-form" role="search"><label for="demo-search">覚えている言葉</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="demo-search" type="search" placeholder="例：雨、写真、喫茶店" autocomplete="off"><button type="submit" aria-label="検索する">→</button></div></form>
+            <div class="search-examples"><button data-query="雨">雨</button><button data-query="写真">写真</button><button data-query="喫茶店">喫茶店</button><button data-query="">すべて</button></div>
+            <p id="result-count" class="small" aria-live="polite"></p><div id="record-list" class="record-list"></div>
+          </aside>
+          <article class="record-reader" id="record-reader" aria-label="記録の内容" tabindex="-1">
+            <div id="reader-empty" class="reader-empty"><span class="empty-symbol" aria-hidden="true">▤</span><h2>まず「雨」で探してみましょう。</h2><p>一覧の記録を開いたら、下にある関連記録から、別の会話へ進めます。</p><ol><li>言葉で検索する</li><li>記録をひらく</li><li>関連する会話を読む</li></ol></div>
+            <div id="reader-content" hidden></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="core" data-screen="core" aria-labelledby="core-title" inert>
+      <div class="screen-inner">
+        <div class="section-heading"><div><p class="eyebrow">Windowsアプリの実画面</p><h1 id="core-title">会話を読むための、落ち着いた道具。</h1></div><span class="badge">公開用Core</span></div>
+        <div class="core-grid"><figure class="actual-screen"><button id="screen-zoom" aria-label="魔道書Coreの画面を拡大"><img src="assets/app-screen.jpg" alt="魔道書Coreの実画面。左に年月の目次、中央に会話、右にカテゴリとタグ。" width="1200" height="675"><span>画面を拡大 ↗</span></button><figcaption>架空の会話データを表示した公開用Coreの画面。</figcaption></figure>
+          <div class="feature-list"><article><span>01</span><div><h2>原文を読み返す</h2><p>年月の目次から会話を開き、原文と断章を行き来できます。</p></div></article><article><span>02</span><div><h2>言葉で絞り込む</h2><p>タイトル・要約・原文・Category・Tagを検索。複数語はAND検索です。</p></div></article><article><span>03</span><div><h2>また使う記録を残す</h2><p>断章に手動Tagやしおりを付け、資料へ移動できます。</p></div></article><article><span>04</span><div><h2>手元に保存する</h2><p>データはPC内に保存。手動・自動バックアップに対応しています。</p></div></article></div>
+        </div>
+        <div class="import-guide"><h2>Exportから、最初の一冊まで</h2><ol class="steps"><li><span>1</span><div><h3>ExportをPCへ保存</h3><p>ChatGPTの設定などから取得します。利用できる手順はアカウントにより異なります。<a href="https://help.openai.com/en/articles/7260999-exporting-your-chatgpt-history-and-data" target="_blank" rel="noopener noreferrer">公式の手順 ↗</a></p></div></li><li><span>2</span><div><h3>「記録 ▼」から取り込む</h3><p>ZIP・conversations.json・分割JSON・展開済みフォルダに対応。大きなZIPで失敗したら展開して選び直せます。</p></div></li><li><span>3</span><div><h3>目次と検索から読み返す</h3><p>年月から会話を開くか、覚えている言葉で検索。原文にある別の言葉を手がかりに、さらに記録を探せます。</p></div></li></ol></div>
+        <div class="core-bottom"><p>元のExportは、取り込み後も元の場所に残ります。</p><button class="button" data-page="start">入手方法・動作環境を見る →</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="start" data-screen="start" aria-labelledby="start-title" inert>
+      <div class="screen-inner">
+        <div class="section-heading"><div><p class="eyebrow">あなたのPCに、小さな書庫を</p><h1 id="start-title">無料で使える、開かれた魔道書。</h1></div><span class="badge">無料 · MIT License</span></div>
+        <div class="start-grid"><div class="release-intro"><h2>記録を、自分の手元に。</h2><p>魔道書は無料のオープンソースアプリです。会話の閲覧・検索はローカルで動作し、基本機能にAPIキーは不要です。</p><p>CoreのソースコードにはMIT Licenseを適用します。利用・改変・再配布の条件と同梱ライブラリの通知は、公開時のLICENSEをご確認ください。</p><button class="text-button" data-page="core">取り込みの手順を確認する →</button><div class="storage-note"><h2>記録の保存先</h2><p><code>%LOCALAPPDATA%\MagicLogger</code></p><p class="small">画面の「バックアップ」で手動保存できます。自動バックアップも同じデータ領域に作成されます。大切な記録は別のドライブにも保管してください。</p></div><div class="project-links" aria-label="制作者のリンク"><a id="nempro-link" aria-disabled="true">ねむプロ公式サイト <span>準備中</span></a><a id="developer-x-link" aria-disabled="true">開発者のX <span>準備中</span></a></div></div>
+          <div class="download-card"><h2 id="download-title">Windows版の公開準備中</h2><p id="download-description">正式な配布先が決まり次第、ここから入手できます。</p><div class="download-actions"><a id="download-link" class="button" aria-disabled="true">Download · 準備中</a><a id="github-link" class="button secondary" aria-disabled="true">GitHub · 準備中</a></div><dl><dt>動作環境</dt><dd>Windows 11 x64<br>.NET 10 Desktop Runtime x64が必要です。</dd><dt>現在の対応範囲</dt><dd>ChatGPT Exportのテキスト会話が主な対象です。添付画像や画像だけの発言は、内容を完全に取り込めない場合があります。</dd><dt>ライセンス</dt><dd>魔道書CoreにはMIT Licenseを適用します。サイトのキャラクター素材とは扱いが異なります。</dd></dl><p class="small quiet">OpenAI / ChatGPTの公式製品ではありません。<br>© 2026 nempro</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="navigation-dock">
+    <div class="page-controls"><div class="page-position"><span id="page-count">01 / 04</span><span id="page-label">魔道書とは</span></div><div class="arrows"><button id="previous" aria-label="前の画面へ">← <span>前へ</span></button><button id="next" aria-label="次の画面へ"><span>次へ</span> →</button></div><p class="keyboard-hint">← → で移動 · Homeでトップ · スワイプ対応</p></div>
+    <aside class="nie-speech closed" id="nie-speech" aria-label="にえの書庫だより" aria-hidden="true" inert>
+      <div class="tip-header"><h2>にえの書庫だより</h2><button id="nie-close" aria-label="書庫だよりを閉じる">×</button></div>
+      <div class="tip-categories" role="group" aria-label="Tipsの種類"><button data-tip-category="chatgpt" aria-pressed="true">ChatGPTのTips</button><button data-tip-category="magiclogger" aria-pressed="false">魔道書のTips</button></div>
+      <div class="tip-content" aria-live="polite"><p id="tip-count" class="small"></p><h3 id="tip-title"></h3><p id="tip-body"></p></div>
+      <div class="tip-actions"><button id="tip-next">ほかのお話 ↻</button><button id="nie-next" data-page="demo">探索デモへ →</button></div>
+    </aside>
+    <button class="nie-trigger" id="nie-trigger" type="button" aria-expanded="false" aria-controls="nie-speech" aria-label="にえの書庫だよりを開く"><img src="assets/nie.png" alt="書庫の司書にえ" width="110" height="150"><span>にえの書庫だより</span></button>
+  </footer>
+  <dialog id="screen-dialog" aria-label="魔道書Coreの拡大画面"><button id="zoom-close" class="button" autofocus>閉じる ×</button><img src="assets/app-screen.jpg" alt="架空の会話を表示した魔道書Coreの拡大画面"><p>公開用Coreの実画面 · 架空の会話データ</p></dialog>
+  <div id="page-announcement" class="sr-only" aria-live="polite"></div>
+</body>
+</html>
